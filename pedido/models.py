@@ -3,7 +3,8 @@ from django.db import models
 
 
 class Pedido(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='Usuário')
     total = models.FloatField()
     status = models.CharField(
         default='C',
@@ -23,15 +24,16 @@ class Pedido(models.Model):
 
 
 class ItemPedido(models.Model):
-    order = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    product = models.CharField(max_length=255)
-    product_id = models.PositiveBigIntegerField()
-    varation = models.CharField(max_length=255)
-    variation_id = models.PositiveBigIntegerField()
-    price = models.FloatField()
-    promocional_price = models.FloatField(default=0)
-    quantity = models.PositiveBigIntegerField()
-    image = models.CharField(max_length=2000)
+    order = models.ForeignKey(
+        Pedido, on_delete=models.CASCADE, verbose_name='Pedido')
+    product = models.CharField(max_length=255, verbose_name='Produto')
+    product_id = models.PositiveBigIntegerField(verbose_name='Produto-id')
+    varation = models.CharField(max_length=255, verbose_name='Variação')
+    variation_id = models.PositiveBigIntegerField(verbose_name='Variação-id')
+    price = models.FloatField(verbose_name='Preço')
+    promocional_price = models.FloatField(default=0, verbose_name='Preço-id')
+    quantity = models.PositiveBigIntegerField(verbose_name='Quantidade')
+    image = models.CharField(max_length=2000, verbose_name='Imagem')
 
     def __str__(self):
         return f'Item do {self.order}'
